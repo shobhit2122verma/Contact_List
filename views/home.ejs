@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title><%= locals.title%></title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/home.css">
+        <!-- in our index as in the middleware we are telling our app about the static folder assets so we can just write /css/home.css and it will work fine -->
+        
+    </head>
+    <body>
+        <h1 id="page-heading">
+            <i class="fas fa-address-book"></i>
+            My Contact list
+        </h1>
+        <div id="contact-list-container">
+            <ul>
+                <% for(let i of contact_list){%>
+                    <li class="contact">
+                        <div class="details">
+                            <p><%=i.name%></p>
+                            <p><%=i.phone%></p>
+                        </div>
+                        <div class="delete-button">
+                            <a href="/delete-contact/?id=<%= i._id %>">
+                                <!-- now since the get request is not handled properly in the url it will say that the  cannot get the post rewuest to the phone which is countered-->
+                                <i class="fas fa-window-close"></i>
+                            </a>
+                        </div>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+        <form id="new-contact-form" action="/create-contact" method="POST">
+            <input type="text" name="name" placeholder="Enter Name" required>
+            <input type="number" name="phone" placeholder="Enter number" required>
+            <button type="submit">Add Contact</button>
+        </form>
+        <script type="text/javascript" src="/js/home.js"></script>
+    </body>
+</html>
